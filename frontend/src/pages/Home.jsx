@@ -147,7 +147,7 @@ const Home = () => {
               return (
                 <div 
                   key={index}
-                  className="p-6 rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-300"
+                  className={`p-6 rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-md hover-lift animate-scale-in stagger-${Math.min(index % 6 + 1, 6)}`}
                 >
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                     <Icon className="h-6 w-6 text-blue-600" />
