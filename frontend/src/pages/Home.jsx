@@ -97,10 +97,10 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {subjects.map((subject) => (
+            {subjects.map((subject, index) => (
               <Card 
                 key={subject.id} 
-                className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer group"
+                className={`hover:shadow-lg hover-lift cursor-pointer group animate-fade-in-up stagger-${Math.min(index % 4 + 1, 6)}`}
               >
                 <CardHeader>
                   <div className="w-16 h-16 mb-4 flex items-center justify-center rounded-lg bg-gradient-to-br from-blue-50 to-purple-50 group-hover:from-blue-100 group-hover:to-purple-100 transition-all">
