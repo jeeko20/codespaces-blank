@@ -68,8 +68,8 @@ const Resources = () => {
 
         {/* Resources Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredResources.map(resource => (
-            <Card key={resource.id} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+          {filteredResources.map((resource, index) => (
+            <Card key={resource.id} className={`hover:shadow-lg hover-lift animate-fade-in-up stagger-${Math.min(index % 3 + 1, 6)}`}>
               <CardHeader>
                 <div className="flex items-start justify-between mb-2">
                   <Badge variant={resource.type === 'pdf' ? 'default' : 'secondary'}>
