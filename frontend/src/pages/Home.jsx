@@ -172,7 +172,7 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-lg hover-lift animate-slide-in-left">
               <CardHeader>
                 <CardTitle className="text-2xl">Discussions actives</CardTitle>
                 <CardDescription>
