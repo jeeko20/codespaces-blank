@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Bell, Menu, X } from 'lucide-react';
+import { Bell, Menu, X, User, LogOut } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { useAuth } from '../contexts/AuthContext';
+import AuthDialog from './AuthDialog';
 import { notifications } from '../utils/mockData';
 
 const Navbar = () => {
