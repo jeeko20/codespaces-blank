@@ -95,12 +95,59 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
-              Connexion
-            </Button>
-            <Button className="bg-blue-600 hover:bg-blue-700">
-              S'inscrire
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    <Avatar>
+                      <AvatarImage src={user.user_metadata?.avatar || ''} />
+                      <AvatarFallback>{user.user_metadata?.name?.[0] || user.email[0].toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <div className="flex items-center justify-start gap-2 p-2">
+                    <div className="flex flex-col space-y-1 leading-none">
+                      <p className="font-medium">{user.user_metadata?.name || 'Utilisateur'}</p>
+                      <p className="text-sm text-muted-foreground">{user.email}</p>
+                    </div>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile" className="cursor-pointer">
+                      <User className="mr-2 h-4 w-4" />
+                      Mon profil
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/my-notes" className="cursor-pointer">
+                      Mes notes
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={signOut} className="cursor-pointer text-red-600">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Déconnexion
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Button 
+                  variant="outline" 
+                  className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                  onClick={() => setAuthDialogOpen(true)}
+                >
+                  Connexion
+                </Button>
+                <Button 
+                  className="bg-blue-600 hover:bg-blue-700"
+                  onClick={() => setAuthDialogOpen(true)}
+                >
+                  S'inscrire
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
