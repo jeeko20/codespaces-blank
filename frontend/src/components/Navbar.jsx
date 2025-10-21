@@ -222,6 +222,11 @@ const Navbar = () => {
           </div>
         </div>
       )}
+      
+      <AuthDialog 
+        open={authDialogOpen} 
+        onOpenChange={setAuthDialogOpen} 
+      />
     </nav>
   );
 };
