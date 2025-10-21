@@ -103,8 +103,8 @@ const Home = () => {
                 className={`hover:shadow-lg hover-lift cursor-pointer group animate-fade-in-up stagger-${Math.min(index % 4 + 1, 6)}`}
               >
                 <CardHeader>
-                  <div className="w-16 h-16 mb-4 flex items-center justify-center rounded-lg bg-gradient-to-br from-blue-50 to-purple-50 group-hover:from-blue-100 group-hover:to-purple-100 transition-all">
-                    <img src={subject.icon} alt={subject.name} className="w-12 h-12" />
+                  <div className="w-16 h-16 mb-4 flex items-center justify-center rounded-lg bg-gradient-to-br from-blue-50 to-purple-50 group-hover:from-blue-100 group-hover:to-purple-100 transition-all duration-500 group-hover:rotate-6 group-hover:scale-110">
+                    <img src={subject.icon} alt={subject.name} className="w-12 h-12 transition-transform duration-500" />
                   </div>
                   <CardTitle className="text-xl">{subject.name}</CardTitle>
                   <CardDescription className="text-sm">
