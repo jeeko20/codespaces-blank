@@ -188,7 +188,7 @@ const Home = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-lg hover-lift animate-slide-in-right">
               <CardHeader>
                 <CardTitle className="text-2xl">Partagez vos ressources</CardTitle>
                 <CardDescription>
