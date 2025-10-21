@@ -149,8 +149,8 @@ const Home = () => {
                   key={index}
                   className={`p-6 rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-md hover-lift animate-scale-in stagger-${Math.min(index % 6 + 1, 6)}`}
                 >
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                    <Icon className="h-6 w-6 text-blue-600" />
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 transition-all duration-500 hover:bg-blue-200 hover:rotate-12 hover:scale-110">
+                    <Icon className="h-6 w-6 text-blue-600 transition-transform duration-500" />
                   </div>
                   <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
                   <p className="text-gray-600">{feature.description}</p>
