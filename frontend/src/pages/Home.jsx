@@ -44,32 +44,32 @@ const Home = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section 
-        className="relative h-[500px] flex items-center justify-center text-white"
+        className="relative h-[500px] flex items-center justify-center text-white overflow-hidden"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920)',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-purple-900/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-purple-900/80 animate-fade-in" />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in-up">
             Partagez vos connaissances
           </h1>
-          <p className="text-xl md:text-2xl mb-8">
+          <p className="text-xl md:text-2xl mb-8 animate-fade-in-up stagger-1">
             La plateforme collaborative pour les étudiants
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up stagger-2">
             <Button 
               size="lg" 
-              className="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-6 text-lg"
+              className="bg-green-600 hover:bg-green-700 hover:scale-105 transform transition-all duration-300 text-white font-semibold px-8 py-6 text-lg shadow-lg hover:shadow-xl"
               asChild
             >
               <Link to="/quiz">Créer un quiz / flashcard</Link>
             </Button>
             <Button 
               size="lg" 
-              className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-6 text-lg"
+              className="bg-purple-600 hover:bg-purple-700 hover:scale-105 transform transition-all duration-300 text-white font-semibold px-8 py-6 text-lg shadow-lg hover:shadow-xl"
               asChild
             >
               <Link to="/resources">Voir nos vidéos</Link>
@@ -77,7 +77,7 @@ const Home = () => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="bg-white/10 hover:bg-white/20 border-2 border-white text-white font-semibold px-8 py-6 text-lg backdrop-blur-sm"
+              className="bg-white/10 hover:bg-white/20 hover:scale-105 transform transition-all duration-300 border-2 border-white text-white font-semibold px-8 py-6 text-lg backdrop-blur-sm shadow-lg hover:shadow-xl"
               asChild
             >
               <Link to="/community">Rejoindre la communauté</Link>
