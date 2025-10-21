@@ -94,8 +94,8 @@ const Quiz = () => {
           {/* Flashcards Tab */}
           <TabsContent value="flashcards" className="mt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {flashcards.map(flashcard => (
-                <Card key={flashcard.id} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              {flashcards.map((flashcard, index) => (
+                <Card key={flashcard.id} className={`hover:shadow-lg hover-lift animate-fade-in-up stagger-${Math.min(index % 3 + 1, 6)}`}>
                   <CardHeader>
                     <div className="mb-3">
                       <Badge variant="outline">{flashcard.subject}</Badge>
