@@ -18,7 +18,9 @@ import { notifications } from '../utils/mockData';
 const Navbar = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
   const unreadCount = notifications.filter(n => !n.read).length;
+  const { user, signOut } = useAuth();
 
   const navLinks = [
     { path: '/', label: 'Accueil' },
