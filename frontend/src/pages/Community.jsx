@@ -77,8 +77,8 @@ const Community = () => {
 
           <TabsContent value="all" className="mt-6">
             <div className="space-y-4">
-              {filteredDiscussions.map(discussion => (
-                <Card key={discussion.id} className="hover:shadow-md transition-shadow cursor-pointer">
+              {filteredDiscussions.map((discussion, index) => (
+                <Card key={discussion.id} className={`hover:shadow-md hover-lift cursor-pointer animate-fade-in stagger-${Math.min(index % 3 + 1, 6)}`}>
                   <CardContent className="p-6">
                     <div className="flex items-start space-x-4">
                       <Avatar className="h-12 w-12">
