@@ -82,40 +82,60 @@ const Navbar = () => {
 
           {/* Right side - Notifications and Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            {/* Notifications */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="relative">
-                  <Bell className="h-5 w-5" />
-                  {unreadCount > 0 && (
-                    <Badge 
-                      className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-red-500 hover:bg-red-600"
-                    >
-                      {unreadCount}
-                    </Badge>
-                  )}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-80">
-                <div className="p-2 font-semibold border-b">Notifications</div>
-                {notifications.slice(0, 5).map((notif) => (
-                  <DropdownMenuItem key={notif.id} className="p-3 cursor-pointer">
-                    <div className="flex flex-col space-y-1">
-                      <div className="flex items-center justify-between">
-                        <span className={`text-sm font-medium ${!notif.read ? 'text-blue-600' : 'text-gray-900'}`}>
-                          {notif.title}
-                        </span>
-                        {!notif.read && <div className="w-2 h-2 bg-blue-600 rounded-full" />}
-                      </div>
-                      <span className="text-xs text-gray-600">{notif.message}</span>
+            {/* Notifications - Only show if authenticated */}
+            {isAuthenticated && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="relative">
+                    <Bell className="h-5 w-5" />
+                    {unreadCount > 0 && (
+                      <Badge 
+                        className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-red-500 hover:bg-red-600"
+                      >
+                        {unreadCount}
+                      </Badge>
+                    )}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-80">
+                  <div className="p-2 font-semibold border-b">Notifications</div>
+                  {notifications.length > 0 ? (
+                    <>
+                      {notifications.slice(0, 5).map((notif) => (
+                        <DropdownMenuItem 
+                          key={notif.id} 
+                          className="p-3 cursor-pointer"
+                          onClick={async () => {
+                            try {
+                              await notificationAPI.markAsRead(notif.id);
+                              setNotifications(prev => 
+                                prev.map(n => n.id === notif.id ? {...n, read: true} : n)
+                              );
+                            } catch (error) {
+                              console.error('Failed to mark as read:', error);
+                            }
+                          }}
+                        >
+                          <div className="flex flex-col space-y-1">
+                            <div className="flex items-center justify-between">
+                              <span className={`text-sm font-medium ${!notif.read ? 'text-blue-600' : 'text-gray-900'}`}>
+                                {notif.title}
+                              </span>
+                              {!notif.read && <div className="w-2 h-2 bg-blue-600 rounded-full" />}
+                            </div>
+                            <span className="text-xs text-gray-600">{notif.message}</span>
+                          </div>
+                        </DropdownMenuItem>
+                      ))}
+                    </>
+                  ) : (
+                    <div className="p-4 text-center text-sm text-gray-500">
+                      Aucune notification
                     </div>
-                  </DropdownMenuItem>
-                ))}
-                <DropdownMenuItem className="text-center text-sm text-blue-600 hover:text-blue-700 cursor-pointer">
-                  Voir toutes les notifications
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
 
             {user ? (
               <DropdownMenu>
