@@ -237,11 +237,11 @@ const Navbar = () => {
               {user ? (
                 <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-md">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src={user.user_metadata?.avatar || ''} />
-                    <AvatarFallback>{user.user_metadata?.name?.[0] || user.email[0].toUpperCase()}</AvatarFallback>
+                    <AvatarImage src={user.avatar || ''} />
+                    <AvatarFallback>{user.name?.[0] || user.email[0].toUpperCase()}</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
-                    <p className="text-sm font-medium">{user.user_metadata?.name || 'Utilisateur'}</p>
+                    <p className="text-sm font-medium">{user.name || 'Utilisateur'}</p>
                     <p className="text-xs text-gray-600">{user.email}</p>
                   </div>
                 </div>
