@@ -101,3 +101,125 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Test du backend UnivLoop - API complète avec FastAPI et MongoDB. Toutes les routes sont préfixées par /api."
+
+backend:
+  - task: "Health Check API"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Health check endpoint /api/health working correctly, returns status ok"
+
+  - task: "User Authentication System"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "Initial authentication had dependency injection issues with lambda functions"
+      - working: true
+        agent: "testing"
+        comment: "Fixed authentication dependencies, register/login/profile endpoints working correctly. JWT tokens generated and validated properly"
+
+  - task: "Subjects Management"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "GET /api/subjects returns 8 default subjects as expected (Informatique, Mathématiques, Physique, etc.)"
+
+  - task: "Resources Management"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Resource CRUD operations working: create resource with authentication, get resources, like/unlike functionality working correctly"
+
+  - task: "Discussions and Comments"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Discussion creation and comment system working correctly. Notifications created automatically for new discussions"
+
+  - task: "Statistics API"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Statistics endpoint returns dynamic real data: 1 user, 1 resource, 1 discussion, 8 subjects"
+
+  - task: "Notifications System"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Notifications endpoint working with authentication, returns user-specific notifications"
+
+  - task: "Authentication Protection"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Minor: Protected endpoints return 403 instead of 401 without token, but this is acceptable FastAPI HTTPBearer behavior"
+
+frontend:
+  # No frontend testing performed as per instructions
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "All backend API endpoints tested and working"
+  stuck_tasks: []
+  test_all: true
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "testing"
+    message: "Backend API testing completed successfully. Fixed authentication dependency injection issue. All major endpoints working correctly with 93.3% success rate (14/15 tests passed). Only minor issue is 403 vs 401 status code for unauthorized requests, which is acceptable behavior."
