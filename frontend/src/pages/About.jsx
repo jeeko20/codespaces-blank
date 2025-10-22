@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, Users, Heart, Zap } from 'lucide-react';
+import { Target, Users, Heart, Zap, Mail, Phone } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 
 const About = () => {
@@ -7,34 +7,44 @@ const About = () => {
     {
       icon: Target,
       title: 'Notre mission',
-      description: 'Faciliter l\'apprentissage et le partage de connaissances entre étudiants en informatique.'
+      description: 'Créer une boucle universitaire où tout ce qui se passe sur le campus revient vers les étudiants en permanence.'
     },
     {
       icon: Users,
-      title: 'Communauté',
-      description: 'Créer un espace collaboratif où chacun peut contribuer et progresser ensemble.'
+      title: 'Communauté connectée',
+      description: 'UnivLoop connecte toute l\'université dans un fil d\'actualité qui boucle en permanence.'
     },
     {
       icon: Heart,
-      title: 'Passion',
-      description: 'Animés par la passion de l\'enseignement et du partage de connaissances.'
+      title: 'Partage',
+      description: 'Partagez vos ressources, notes, quiz et flashcards avec toute la communauté universitaire.'
     },
     {
       icon: Zap,
-      title: 'Innovation',
-      description: 'Utiliser les dernières technologies pour offrir la meilleure expérience d\'apprentissage.'
+      title: 'En temps réel',
+      description: 'Restez informé de toutes les activités du campus grâce aux notifications en temps réel.'
     }
   ];
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Hero Section */}
+        {/* Hero Section with Developer Photo */}
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">À propos d'Eudushare</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Eudushare est né de la volonté de créer une plateforme collaborative permettant aux étudiants 
-            en informatique de partager leurs connaissances, ressources et expériences.
+          <div className="flex justify-center mb-6">
+            <img 
+              src="https://res.cloudinary.com/ddzx1fktv/image/upload/v1760454872/edushare/ressources/1760358751019.jpg.png" 
+              alt="Développeur UnivLoop"
+              className="w-32 h-32 rounded-full object-cover border-4 border-blue-500 shadow-lg"
+            />
+          </div>
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">À propos d'UnivLoop</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-4">
+            <strong>UnivLoop</strong> - La boucle universitaire : tout ce qui se passe sur le campus 
+            tourne en boucle et revient vers les étudiants.
+          </p>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            Le fil d'actualité qui boucle en permanence pour connecter toute l'université.
           </p>
         </div>
 
@@ -58,40 +68,49 @@ const About = () => {
           })}
         </div>
 
-        {/* Story Section */}
+        {/* What UnivLoop Does */}
         <div className="bg-white rounded-lg shadow-md p-8 mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">Notre histoire</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">Ce que fait UnivLoop</h2>
           <div className="space-y-4 text-gray-600">
             <p>
-              Eudushare a été créé en 2024 par un groupe d'étudiants en informatique qui ont identifié 
-              le besoin d'une plateforme centralisée pour partager des ressources éducatives.
+              <strong>UnivLoop</strong> est une plateforme collaborative conçue spécialement pour les 
+              étudiants universitaires. Elle permet de :
             </p>
-            <p>
-              Nous avons commencé avec une simple idée : permettre aux étudiants de partager leurs notes 
-              et tutoriels. Aujourd'hui, Eudushare est devenu une communauté active où des milliers 
-              d'étudiants collaborent quotidiennement.
-            </p>
-            <p>
-              Notre plateforme offre désormais des fonctionnalités avancées comme la création de quiz, 
-              de flashcards, des forums de discussion, et bien plus encore.
+            <ul className="list-disc list-inside space-y-2 ml-4">
+              <li>Partager des ressources éducatives (notes, PDF, vidéos, documents)</li>
+              <li>Créer et participer à des quiz et flashcards pour réviser</li>
+              <li>Rejoindre des groupes selon votre filière et niveau d'études</li>
+              <li>Participer aux discussions globales ou spécifiques à votre département</li>
+              <li>Recevoir des notifications sur toutes les nouvelles activités du campus</li>
+              <li>Créer des catégories personnalisées pour organiser le contenu</li>
+            </ul>
+            <p className="mt-6">
+              Tout le contenu est dynamique et généré par les étudiants eux-mêmes, créant ainsi 
+              une véritable boucle d'information au sein de votre université.
             </p>
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center">
-            <p className="text-5xl font-bold text-blue-600 mb-2">5000+</p>
-            <p className="text-xl text-gray-600">Étudiants actifs</p>
+        {/* Contact Section */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-lg p-8 text-white">
+          <h2 className="text-3xl font-bold mb-6 text-center">Contactez-nous</h2>
+          <div className="flex flex-col md:flex-row justify-center items-center gap-8">
+            <div className="flex items-center gap-3">
+              <Mail className="h-6 w-6" />
+              <a href="mailto:jeekothebest@gmail.com" className="text-lg hover:underline">
+                jeekothebest@gmail.com
+              </a>
+            </div>
+            <div className="flex items-center gap-3">
+              <Phone className="h-6 w-6" />
+              <a href="tel:+50933970083" className="text-lg hover:underline">
+                +509 3397 0083
+              </a>
+            </div>
           </div>
-          <div className="text-center">
-            <p className="text-5xl font-bold text-blue-600 mb-2">2000+</p>
-            <p className="text-xl text-gray-600">Ressources partagées</p>
-          </div>
-          <div className="text-center">
-            <p className="text-5xl font-bold text-blue-600 mb-2">500+</p>
-            <p className="text-xl text-gray-600">Quiz créés</p>
-          </div>
+          <p className="text-center mt-6 text-blue-100">
+            Pour toute question, suggestion ou problème technique, n'hésitez pas à nous contacter !
+          </p>
         </div>
       </div>
     </div>
