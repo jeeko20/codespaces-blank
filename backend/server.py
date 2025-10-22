@@ -165,7 +165,7 @@ async def get_user(user_id: str, database: AsyncIOMotorDatabase = Depends(get_db
 async def update_user(
     user_id: str,
     user_update: UserUpdate,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Update user profile"""
@@ -216,7 +216,7 @@ async def get_subjects(database: AsyncIOMotorDatabase = Depends(get_db)):
 @api_router.post("/subjects", response_model=Subject, status_code=status.HTTP_201_CREATED)
 async def create_subject(
     subject_data: SubjectCreate,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Create a new subject (for 'Autre' option)"""
@@ -294,7 +294,7 @@ async def get_resources(
 @api_router.post("/resources", response_model=Resource, status_code=status.HTTP_201_CREATED)
 async def create_resource(
     resource_data: ResourceCreate,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Create a new resource"""
@@ -373,7 +373,7 @@ async def get_resource(resource_id: str, database: AsyncIOMotorDatabase = Depend
 async def update_resource(
     resource_id: str,
     resource_update: ResourceUpdate,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Update a resource"""
@@ -405,7 +405,7 @@ async def update_resource(
 @api_router.delete("/resources/{resource_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_resource(
     resource_id: str,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Delete a resource"""
@@ -423,7 +423,7 @@ async def delete_resource(
 @api_router.post("/resources/{resource_id}/like")
 async def like_resource(
     resource_id: str,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Like or unlike a resource"""
@@ -523,7 +523,7 @@ async def get_discussions(
 @api_router.post("/discussions", response_model=Discussion, status_code=status.HTTP_201_CREATED)
 async def create_discussion(
     discussion_data: DiscussionCreate,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Create a new discussion"""
@@ -617,7 +617,7 @@ async def get_discussion(discussion_id: str, database: AsyncIOMotorDatabase = De
 async def update_discussion(
     discussion_id: str,
     discussion_update: DiscussionUpdate,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Update a discussion"""
@@ -653,7 +653,7 @@ async def update_discussion(
 @api_router.delete("/discussions/{discussion_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_discussion(
     discussion_id: str,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Delete a discussion"""
@@ -672,7 +672,7 @@ async def delete_discussion(
 async def add_comment(
     discussion_id: str,
     comment_data: CommentCreate,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Add a comment to a discussion"""
@@ -744,7 +744,7 @@ async def get_quizzes(
 @api_router.post("/quizzes", response_model=Quiz, status_code=status.HTTP_201_CREATED)
 async def create_quiz(
     quiz_data: QuizCreate,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Create a new quiz"""
@@ -810,7 +810,7 @@ async def get_quiz(quiz_id: str, database: AsyncIOMotorDatabase = Depends(get_db
 @api_router.post("/quizzes/{quiz_id}/attempt")
 async def attempt_quiz(
     quiz_id: str,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Record a quiz attempt"""
@@ -850,7 +850,7 @@ async def get_flashcards(
 @api_router.post("/flashcards", response_model=Flashcard, status_code=status.HTTP_201_CREATED)
 async def create_flashcard(
     flashcard_data: FlashcardCreate,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Create a new flashcard set"""
@@ -924,7 +924,7 @@ async def get_flashcard(flashcard_id: str, database: AsyncIOMotorDatabase = Depe
 
 @api_router.get("/notifications", response_model=List[Notification])
 async def get_notifications(
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     limit: int = Query(50, le=100),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
@@ -944,7 +944,7 @@ async def get_notifications(
 @api_router.put("/notifications/{notification_id}/read")
 async def mark_notification_read(
     notification_id: str,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Mark notification as read"""
@@ -962,7 +962,7 @@ async def mark_notification_read(
 @api_router.delete("/notifications/{notification_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_notification(
     notification_id: str,
-    current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db)),
+    current_user: User = Depends(get_current_user_dep),
     database: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Delete a notification"""
