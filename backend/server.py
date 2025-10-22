@@ -117,7 +117,7 @@ async def login(credentials: UserLogin, database: AsyncIOMotorDatabase = Depends
 
 
 @api_router.get("/auth/me", response_model=User)
-async def get_me(current_user: User = Depends(lambda creds, db=Depends(get_db): get_current_user(creds, db))):
+async def get_me(current_user: User = Depends(get_current_user_dep)):
     """Get current user profile"""
     return current_user
 
