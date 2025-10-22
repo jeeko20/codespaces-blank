@@ -75,7 +75,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
-                <span>contact@eudushare.com</span>
+                <span>jeekothebest@gmail.com</span>
               </li>
             </ul>
             <div className="flex space-x-4 mt-4">
