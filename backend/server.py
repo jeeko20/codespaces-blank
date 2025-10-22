@@ -46,6 +46,15 @@ async def get_db() -> AsyncIOMotorDatabase:
     return db
 
 
+# Dependency to get current user
+async def get_current_user_dep(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    database: AsyncIOMotorDatabase = Depends(get_db)
+) -> User:
+    """Dependency to get current authenticated user"""
+    return await get_current_user(credentials, database)
+
+
 # ============================================================================
 # AUTHENTICATION ROUTES
 # ============================================================================
