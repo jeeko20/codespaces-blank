@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
 import { useToast } from '../hooks/use-toast';
+import { authAPI } from '../services/api';
 
 const AuthContext = createContext({});
 
@@ -18,55 +18,44 @@ export const AuthProvider = ({ children }) => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check active session
-    const checkSession = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        setUser(session?.user || null);
-      } catch (error) {
-        console.error('Error checking session:', error);
-      } finally {
-        setLoading(false);
+    // Check if user is logged in
+    const checkAuth = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const userData = await authAPI.getMe();
+          setUser(userData);
+        } catch (error) {
+          console.error('Auth check failed:', error);
+          localStorage.removeItem('token');
+        }
       }
+      setLoading(false);
     };
 
-    checkSession();
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user || null);
-    });
-
-    return () => {
-      subscription?.unsubscribe();
-    };
+    checkAuth();
   }, []);
 
   // Sign up with email and password
-  const signUp = async (email, password, name) => {
+  const signUp = async (userData) => {
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            name: name
-          }
-        }
-      });
-
-      if (error) throw error;
+      const { access_token } = await authAPI.register(userData);
+      localStorage.setItem('token', access_token);
+      
+      // Get user data
+      const currentUser = await authAPI.getMe();
+      setUser(currentUser);
 
       toast({
         title: 'Compte créé!',
-        description: 'Vérifiez votre email pour confirmer votre compte.'
+        description: 'Bienvenue sur UnivLoop'
       });
 
-      return { success: true, data };
+      return { success: true };
     } catch (error) {
       toast({
         title: 'Erreur',
-        description: error.message,
+        description: error.response?.data?.detail || 'Une erreur est survenue',
         variant: 'destructive'
       });
       return { success: false, error };
@@ -76,23 +65,23 @@ export const AuthProvider = ({ children }) => {
   // Sign in with email and password
   const signIn = async (email, password) => {
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      if (error) throw error;
+      const { access_token } = await authAPI.login({ email, password });
+      localStorage.setItem('token', access_token);
+      
+      // Get user data
+      const userData = await authAPI.getMe();
+      setUser(userData);
 
       toast({
         title: 'Connexion réussie!',
-        description: 'Bienvenue sur Eudushare'
+        description: 'Bienvenue sur UnivLoop'
       });
 
-      return { success: true, data };
+      return { success: true };
     } catch (error) {
       toast({
         title: 'Erreur de connexion',
-        description: error.message,
+        description: error.response?.data?.detail || 'Email ou mot de passe incorrect',
         variant: 'destructive'
       });
       return { success: false, error };
@@ -102,8 +91,8 @@ export const AuthProvider = ({ children }) => {
   // Sign out
   const signOut = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
+      await authAPI.logout();
+      setUser(null);
 
       toast({
         title: 'Déconnexion',
@@ -112,34 +101,29 @@ export const AuthProvider = ({ children }) => {
 
       return { success: true };
     } catch (error) {
-      toast({
-        title: 'Erreur',
-        description: error.message,
-        variant: 'destructive'
-      });
-      return { success: false, error };
+      // Still log out locally even if API call fails
+      localStorage.removeItem('token');
+      setUser(null);
+      return { success: true };
     }
   };
 
-  // Reset password
-  const resetPassword = async (email) => {
+  // Update user profile
+  const updateProfile = async (userId, updates) => {
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`
-      });
-
-      if (error) throw error;
-
+      const updatedUser = await authAPI.updateUser(userId, updates);
+      setUser(updatedUser);
+      
       toast({
-        title: 'Email envoyé',
-        description: 'Vérifiez votre email pour réinitialiser votre mot de passe.'
+        title: 'Profil mis à jour',
+        description: 'Vos informations ont été enregistrées'
       });
-
-      return { success: true };
+      
+      return { success: true, data: updatedUser };
     } catch (error) {
       toast({
         title: 'Erreur',
-        description: error.message,
+        description: error.response?.data?.detail || 'Impossible de mettre à jour le profil',
         variant: 'destructive'
       });
       return { success: false, error };
@@ -152,7 +136,8 @@ export const AuthProvider = ({ children }) => {
     signUp,
     signIn,
     signOut,
-    resetPassword
+    updateProfile,
+    isAuthenticated: !!user
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
