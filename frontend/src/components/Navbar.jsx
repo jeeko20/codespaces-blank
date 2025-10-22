@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Bell, Menu, X, User, LogOut } from 'lucide-react';
 import { Button } from './ui/button';
@@ -13,14 +13,36 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { useAuth } from '../contexts/AuthContext';
 import AuthDialog from './AuthDialog';
-import { notifications } from '../utils/mockData';
+import { notificationAPI } from '../services/api';
 
 const Navbar = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const { user, signOut, isAuthenticated } = useAuth();
+  
   const unreadCount = notifications.filter(n => !n.read).length;
-  const { user, signOut } = useAuth();
+
+  // Load notifications if user is authenticated
+  useEffect(() => {
+    const loadNotifications = async () => {
+      if (isAuthenticated) {
+        try {
+          const data = await notificationAPI.getAll();
+          setNotifications(data);
+        } catch (error) {
+          console.error('Failed to load notifications:', error);
+        }
+      }
+    };
+
+    loadNotifications();
+    
+    // Refresh notifications every 30 seconds
+    const interval = setInterval(loadNotifications, 30000);
+    return () => clearInterval(interval);
+  }, [isAuthenticated]);
 
   const navLinks = [
     { path: '/', label: 'Accueil' },
