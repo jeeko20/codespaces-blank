@@ -142,15 +142,15 @@ const Navbar = () => {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                     <Avatar>
-                      <AvatarImage src={user.user_metadata?.avatar || ''} />
-                      <AvatarFallback>{user.user_metadata?.name?.[0] || user.email[0].toUpperCase()}</AvatarFallback>
+                      <AvatarImage src={user.avatar || ''} />
+                      <AvatarFallback>{user.name?.[0] || user.email[0].toUpperCase()}</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1 leading-none">
-                      <p className="font-medium">{user.user_metadata?.name || 'Utilisateur'}</p>
+                      <p className="font-medium">{user.name || 'Utilisateur'}</p>
                       <p className="text-sm text-muted-foreground">{user.email}</p>
                     </div>
                   </div>
