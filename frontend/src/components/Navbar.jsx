@@ -60,7 +60,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
-            Eudushare
+            UnivLoop
           </Link>
 
           {/* Desktop Navigation */}
