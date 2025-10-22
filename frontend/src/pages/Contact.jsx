@@ -28,7 +28,9 @@ const Contact = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">contact@eudushare.com</p>
+              <a href="mailto:jeekothebest@gmail.com" className="text-blue-600 hover:underline font-medium">
+                jeekothebest@gmail.com
+              </a>
               <p className="text-sm text-gray-500 mt-2">
                 Nous répondons généralement sous 24-48 heures
               </p>
@@ -39,13 +41,15 @@ const Contact = () => {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <MessageSquare className="h-5 w-5 text-blue-600" />
-                <span>Forum</span>
+                <span>Téléphone</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">Rejoignez notre communauté</p>
+              <a href="tel:+50933970083" className="text-blue-600 hover:underline font-medium">
+                +509 3397 0083
+              </a>
               <p className="text-sm text-gray-500 mt-2">
-                Posez vos questions directement sur le forum
+                Disponible du lundi au vendredi
               </p>
             </CardContent>
           </Card>
